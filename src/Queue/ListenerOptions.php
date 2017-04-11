@@ -1,16 +1,9 @@
 <?php
 
-namespace Illuminate\Queue;
+namespace Dusterio\LaravelVerbose\Queue;
 
-class ListenerOptions extends WorkerOptions
+class ListenerOptions extends \Illuminate\Queue\ListenerOptions
 {
-    /**
-     * The environment the worker should run in.
-     *
-     * @var string
-     */
-    public $environment;
-
     /**
      * Verbosity level (v/vv/vvv).
      *
@@ -32,9 +25,8 @@ class ListenerOptions extends WorkerOptions
      */
     public function __construct($environment = null, $delay = 0, $memory = 128, $timeout = 60, $sleep = 3, $maxTries = 0, $force = false, $verbosity = null)
     {
-        $this->environment = $environment;
         $this->verbosity = $verbosity;
 
-        parent::__construct($delay, $memory, $timeout, $sleep, $maxTries, $force);
+        parent::__construct($environment, $delay, $memory, $timeout, $sleep, $maxTries, $force);
     }
 }
