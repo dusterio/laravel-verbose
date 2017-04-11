@@ -25,7 +25,17 @@ The queue seems to be empty.
 Sleeping for 3 seconds.
 ```
 
-Voilà! Now I know exactly what happened, and now `-vv` flag did exactly what it was supposed to do.
+Let's now break AWS credentials so that SQS is unreachable:
+
+```bash
+$ php artisan queue:work -vv
+Using connection: sqs
+Using queue: live-visits
+Error executing "ReceiveMessage" on "https://sqs.ap-southeast-2.amazonaws.com/XXX/live-visits"; AWS HTTP error...
+Couldn't fetch a job from the queue. See the log file for more information.
+```
+
+Voilà! Now I know exactly what happened in both cases, and now `-vv` flag did exactly what it was supposed to do.
 
 ## Installation
 
