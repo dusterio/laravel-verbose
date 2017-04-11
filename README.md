@@ -42,3 +42,9 @@ Voilà! Now I know exactly what happened in both cases, and now `-vv` flag did e
 ```bash
 $ composer require dusterio/laravel-verbose
 ```
+
+## Currently supported (read extended) commands
+
+`queue:work`
+`queue:listen`
+
