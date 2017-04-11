@@ -3,9 +3,11 @@
 namespace Dusterio\LaravelVerbose\Integrations;
 
 use Illuminate\Support\ServiceProvider;
-use Dusterio\LaravelVerbose\Queue\Worker;
+use Dusterio\LaravelVerbose\Queue\Worker53;
+use Dusterio\LaravelVerbose\Queue\Worker54;
 use Dusterio\LaravelVerbose\Queue\WorkCommand;
-use Dusterio\LaravelVerbose\Queue\Listener;
+use Dusterio\LaravelVerbose\Queue\Listener53;
+use Dusterio\LaravelVerbose\Queue\Listener54;
 use Dusterio\LaravelVerbose\Queue\ListenCommand;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
@@ -15,6 +17,20 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
  */
 class LaravelServiceProvider extends ServiceProvider
 {
+    /**
+     * @var array
+     */
+    protected $implementations = [
+        '5\.3.*' => [
+            'worker' => Worker53::class,
+            'listener' => Listener53::class
+        ],
+        '5\.4.*' => [
+            'worker' => Worker54::class,
+            'listener' => Listener54::class
+        ]
+    ];
+
     /**
      * @return void
      */
@@ -31,8 +47,10 @@ class LaravelServiceProvider extends ServiceProvider
      */
     protected function registerWorker()
     {
-        $this->app->extend('queue.worker', function () {
-            return new Worker(
+        $class = $this->findWorkerClass($this->app->version());
+
+        $this->app->extend('queue.worker', function () use ($class) {
+            return new $class(
                 $this->app['queue'], $this->app['events'], $this->app[ExceptionHandler::class]
             );
         });
@@ -59,8 +77,10 @@ class LaravelServiceProvider extends ServiceProvider
      */
     protected function registerListener()
     {
-        $this->app->extend('queue.listener', function () {
-            return new Listener($this->app->basePath());
+        $class = $this->findListenerClass($this->app->version());
+
+        $this->app->extend('queue.listener', function () use ($class) {
+            return new $class($this->app->basePath());
         });
 
         $this->registerListenCommand();
@@ -96,5 +116,27 @@ class LaravelServiceProvider extends ServiceProvider
             'queue.worker', 'queue.listener',
             'command.queue.work', 'command.queue.listen'
         ];
+    }
+
+    /**
+     * @param $version
+     * @return mixed
+     */
+    protected function findWorkerClass($version)
+    {
+        foreach ($this->implementations as $regexp => $config) {
+            if (preg_match('/' . $regexp . '/', $version)) return $config['worker'];
+        }
+    }
+
+    /**
+     * @param $version
+     * @return mixed
+     */
+    protected function findListenerClass($version)
+    {
+        foreach ($this->implementations as $regexp => $config) {
+            if (preg_match('/' . $regexp . '/', $version)) return $config['listener'];
+        }
     }
 }

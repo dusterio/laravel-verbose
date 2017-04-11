@@ -5,7 +5,7 @@ namespace Dusterio\LaravelVerbose\Queue;
 use Illuminate\Queue\ListenerOptions;
 use Symfony\Component\Process\Process;
 
-class Listener extends \Illuminate\Queue\Listener
+class Listener54 extends \Illuminate\Queue\Listener
 {
     /**
      * Create a new Symfony process for the worker.

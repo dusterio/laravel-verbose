@@ -6,7 +6,7 @@ use Exception;
 use Throwable;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
-class Worker extends \Illuminate\Queue\Worker
+class Worker54 extends \Illuminate\Queue\Worker
 {
     /**
      * Get the next job from the queue connection.

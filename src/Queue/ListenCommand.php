@@ -2,10 +2,6 @@
 
 namespace Dusterio\LaravelVerbose\Queue;
 
-use Illuminate\Queue\Listener;
-use Illuminate\Console\Command;
-use Illuminate\Queue\ListenerOptions;
-
 class ListenCommand extends \Illuminate\Queue\Console\ListenCommand
 {
     /**
