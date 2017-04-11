@@ -56,6 +56,7 @@ Then add a service provider to your `config/app.php`:
 So far tested with:
 
 - Laravel 5.4
+- Laravel 5.3
 
 ## Currently supported (read extended) commands
 
