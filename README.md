@@ -1,4 +1,8 @@
 # laravel-verbose
+[![Latest Stable Version](https://poser.pugx.org/dusterio/laravel-verbose/v/stable)](https://packagist.org/packages/dusterio/laravel-verbose)
+[![Total Downloads](https://poser.pugx.org/dusterio/laravel-verbose/downloads)](https://packagist.org/packages/dusterio/laravel-verbose)
+[![License](https://poser.pugx.org/dusterio/laravel-verbose/license)](https://packagist.org/packages/dusterio/laravel-verbose)
+
 Package that adds verbosity to Laravel/Lumen built-in console commands
 
 ## Overview
