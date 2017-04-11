@@ -2,10 +2,8 @@
 
 namespace Dusterio\LaravelVerbose\Queue;
 
-use Closure;
+use Illuminate\Queue\ListenerOptions;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessUtils;
-use Symfony\Component\Process\PhpExecutableFinder;
 
 class Listener extends \Illuminate\Queue\Listener
 {

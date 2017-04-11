@@ -43,6 +43,14 @@ Voilà! Now I know exactly what happened in both cases, and now `-vv` flag did e
 $ composer require dusterio/laravel-verbose
 ```
 
+Then add a service provider to your `config/app.php`:
+
+```php
+  /* ... */
+  Dusterio\LaravelVerbose\Integrations\LaravelServiceProvider::class,
+  /* ... */
+```
+
 ## Currently supported (read extended) commands
 
 `queue:work`

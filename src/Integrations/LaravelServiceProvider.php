@@ -7,6 +7,7 @@ use Dusterio\LaravelVerbose\Queue\Worker;
 use Dusterio\LaravelVerbose\Queue\WorkCommand;
 use Dusterio\LaravelVerbose\Queue\Listener;
 use Dusterio\LaravelVerbose\Queue\ListenCommand;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
 /**
  * Class CustomQueueServiceProvider
@@ -30,14 +31,13 @@ class LaravelServiceProvider extends ServiceProvider
      */
     protected function registerWorker()
     {
-        $this->registerWorkCommand();
-
-        $this->app->singleton('queue.worker', function ($app) {
+        $this->app->extend('queue.worker', function () {
             return new Worker(
-                $app['queue'], $app['events'],
-                $app['Illuminate\Contracts\Debug\ExceptionHandler']
+                $this->app['queue'], $this->app['events'], $this->app[ExceptionHandler::class]
             );
         });
+
+        $this->registerWorkCommand();
     }
 
     /**
@@ -47,11 +47,9 @@ class LaravelServiceProvider extends ServiceProvider
      */
     protected function registerWorkCommand()
     {
-        $this->app->singleton('command.queue.work', function ($app) {
+        $this->app->extend('command.queue.work', function ($old, $app) {
             return new WorkCommand($app['queue.worker']);
         });
-
-        $this->commands('command.queue.work');
     }
 
     /**
@@ -61,11 +59,11 @@ class LaravelServiceProvider extends ServiceProvider
      */
     protected function registerListener()
     {
-        $this->registerListenCommand();
-
-        $this->app->singleton('queue.listener', function ($app) {
-            return new Listener($app->basePath());
+        $this->app->extend('queue.listener', function () {
+            return new Listener($this->app->basePath());
         });
+
+        $this->registerListenCommand();
     }
 
     /**
@@ -75,11 +73,9 @@ class LaravelServiceProvider extends ServiceProvider
      */
     protected function registerListenCommand()
     {
-        $this->app->singleton('command.queue.listen', function ($app) {
+        $this->app->extend('command.queue.listen', function ($old, $app) {
             return new ListenCommand($app['queue.listener']);
         });
-
-        $this->commands('command.queue.listen');
     }
 
     /**
