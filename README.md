@@ -61,6 +61,7 @@ So far tested with:
 
 - Laravel 5.4
 - Laravel 5.3 (`queue:work` only at the moment)
+- Lumen 5.4
 
 ## Currently supported (read extended) commands
 
