@@ -5,7 +5,7 @@
 
 Package that adds verbosity to Laravel/Lumen built-in console commands
 
-![Laravel Verbose in action](https://www.mysenko.com/images/laravel-verbose.gif)
+![Laravel Verbose in action](https://www.mysenko.com/images/laravel-verbose2.gif)
 
 ## Overview
 Even though Laravel console commands have verbosity flags `-v/-vv/-vvv` they are actually ignored. Therefore, using some of the console commands leaves developer completely blind – you have no idea what's happening behind the scenes.
