@@ -25,7 +25,7 @@ class LaravelServiceProvider extends ServiceProvider
             'worker' => Worker53::class,
             'listener' => Listener53::class
         ],
-        '5\.4.*' => [
+        '5\.4.*|5\.5.*' => [
             'worker' => Worker54::class,
             'listener' => Listener54::class
         ]
