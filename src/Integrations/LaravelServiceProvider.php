@@ -21,11 +21,11 @@ class LaravelServiceProvider extends ServiceProvider
      * @var array
      */
     protected $implementations = [
-        '5\.3.*' => [
+        '5\.3\.\d+' => [
             'worker' => Worker53::class,
             'listener' => Listener53::class
         ],
-        '5\.4.*|5\.5.*' => [
+        '5\.4\.\d+|5\.5\.\d+' => [
             'worker' => Worker54::class,
             'listener' => Listener54::class
         ]
